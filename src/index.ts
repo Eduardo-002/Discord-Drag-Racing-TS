@@ -6,6 +6,8 @@ import server from './server'
 import { prefix,token } from './config'
 import handleMessage from './Commands'
 
+console.log(__dirname)
+
 let bot = new Client({
   fetchAllMembers: true,
   presence: {

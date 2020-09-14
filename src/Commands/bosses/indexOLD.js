@@ -1,5 +1,5 @@
 import { MessageEmbed } from 'discord.js'
-import { db } from './../Services/firebase'
+import { db } from './../../Services/firebase'
 
 const getBosses = () => {
   return new Promise(resolve => {
