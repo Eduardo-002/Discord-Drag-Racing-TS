@@ -22,19 +22,19 @@ const commands = {
         description: 'Lists all the bosses and corresponding codes'
       },
       {
-        format: 'bosses order',
+        format: 'bosses order !!! NOT READY !!!',
         description: 'List the order to beat the bosses'
       },
       {
-        format: 'bosses order next',
+        format: 'bosses order next !!! NOT READY !!!',
         description: 'Advance the list by 1 position'
       },
       {
-        format: 'bosses order set [boss-code] [position]',
+        format: 'bosses order set [boss-code] [position] !!! NOT READY !!!',
         description: 'Used to set a boss to a position'
       },
       {
-        format: 'bosses order clear [position]',
+        format: 'bosses order clear [position] !!! NOT READY !!!',
         description: 'Used to remove some boss from list'
       },
       {
@@ -44,6 +44,10 @@ const commands = {
       {
         format: 'bosses [boss-code] set [position]',
         description: 'Sets the user position to the defined boss'
+      },
+      {
+        format: 'bosses clear',
+        description: 'Used when the week ends'
       },
       {
         format: 'bosses [boss-code] clear',
@@ -68,36 +72,7 @@ const commands = {
 //const config = require('./../config')
 import * as config from './../config'
 
-/*module.exports = async ({message,bot,args}) => {
-  let embed =  new MessageEmbed()
-    .setTitle('HELP MENU')
-    .setColor('GREEN')
-    .setFooter(`Requested by: ${message.member ? message.member.displayName : message.author.username}`, message.author.displayAvatarURL())
-    .setThumbnail(bot.user.displayAvatarURL());
-  if (!args[0])
-    embed
-      .setDescription(Object.keys(commands).map(command => `\`${command.padEnd(Object.keys(commands).reduce((a, b) => b.length > a.length ? b : a, '').length)}\` :: ${commands[command].description}`).join('\n'));
-  else {
-    if (Object.keys(commands).includes(args[0].toLowerCase()) || Object.keys(commands).map(c => commands[c].aliases || []).flat().includes(args[0].toLowerCase())) {
-      let command = Object.keys(commands).includes(args[0].toLowerCase())? args[0].toLowerCase() : Object.keys(commands).find(c => commands[c].aliases && commands[c].aliases.includes(args[0].toLowerCase()));
-      embed
-        .setTitle(`COMMAND - ${command}`)
-
-      if (commands[command].aliases)
-        embed.addField('Command aliases', `\`${commands[command].aliases.join('`, `')}\``);
-      embed
-        .addField('DESCRIPTION', commands[command].description)
-        .addField('FORMAT', `\`\`\`${config.prefix}${commands[command].format}\`\`\``);
-    } else {
-      embed
-        .setColor('RED')
-        .setDescription('This command does not exist. Please use the help command without specifying any commands to list them all.');
-    }
-  }
-  message.channel.send(embed);
-}*/
-
-export default async function help({message,bot,args}){
+export default async function help(message,bot,args){
 
   if(!args[0]){
     displayHelpMenu({message})

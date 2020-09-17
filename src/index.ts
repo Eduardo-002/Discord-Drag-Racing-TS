@@ -24,7 +24,7 @@ bot.on('ready', ()=>{
 })
 
 bot.on('message', message => {
-  handleMessage({message,bot})
+  handleMessage(message,bot)
 })
 
 server()

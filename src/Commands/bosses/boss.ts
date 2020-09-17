@@ -1,44 +1,20 @@
-import { MessageEmbed } from 'discord.js'
-import { db } from './../../Services/firebase'
+import { MessageEmbed, Message, Client } from 'discord.js'
+import { Boss,Claim } from '../helpers'
+import getBosses from '../helpers/getBosses'
+import getClaims from '../helpers/getClaims'
 
-interface Boss {
-  id: string,
-  name: string,
-  color: string
-}
-
-interface Claim {
-  index: string,
-  username: string
-}
-
-const getBosseClaims = ({ id }:{id:string}) => {
-  let promise:any = new Promise((resolve) => {
-    db.collection('bosses').doc(id).collection('claim').orderBy('index', 'asc').get()
-      .then(snapshots => {
-        let claims:Array<Claim> = []
-        snapshots.forEach(doc => {
-          let data:any = doc.data()
-          claims.push({index:data.index,username:data.username})
-        })
-        resolve(claims)
-      })
-  })
-  return promise
-}
-
-export default async function list({message,bot,args}:{message:any,bot:any,args:Array<string>}) {
+export default async function boss(message:Message,bot:Client,args:Array<string>) {
   
-  let getBosses = await import(process.env.basedir+'/Commands/bosses/helpers/getBosses')
-  let bosses:Array<Boss> = await getBosses.default()
+  let bosses = await getBosses()
 
   const chosenBoss:Boss|undefined = bosses.find((e:Boss)=>e.id==args[0])
 
   if(chosenBoss){
-    const claims:Array<Claim> = await getBosseClaims({id:chosenBoss.id})
-
+    let claims = await getClaims(chosenBoss)
+    
     let description = claims.map((claim:Claim) => `${claim.index}º :: ${claim.username}`).join('\n')
-
+    description = description==''?'Without Claims!':description
+    
     let embed = new MessageEmbed()
       .setTitle(chosenBoss.name)
       .setColor(chosenBoss.color)

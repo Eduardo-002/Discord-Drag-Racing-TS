@@ -1,14 +1,9 @@
-import { MessageEmbed } from 'discord.js'
+import { MessageEmbed, Message, Client } from 'discord.js'
+import { Boss } from '../helpers'
+import getBosses from '../helpers/getBosses'
 
-export default async function boss({message,bot}:{message:any,bot:any}) {
-  interface Boss {
-    id: string,
-    name: string,
-    color: string
-  }
-
-  let getBosses = await import(process.env.basedir+'/Commands/bosses/helpers/getBosses')
-  let bosses:Array<Boss> = await getBosses.default()
+export default async function boss(message:Message,bot:Client,args:Array<string>) { 
+  let bosses = await getBosses()
 
   let highLength:number = bosses.reduce((a, b) => a.name.length > b.name.length ? a : b).name.length
 
@@ -21,7 +16,7 @@ export default async function boss({message,bot}:{message:any,bot:any}) {
   }
 
   let description = bosses.map(boss =>
-    `\`${boss.name + generateSpacer(highLength - boss.name.length)}\` - ${boss.id}`
+    `\`${boss.name + generateSpacer(highLength - boss.name.length)}\` - ${boss.code}`
   ).join('\n')
 
   let embed = new MessageEmbed()

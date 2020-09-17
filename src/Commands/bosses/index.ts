@@ -1,4 +1,6 @@
-export default async function({message,bot,args}:{message:any,bot:object,args:Array<string>}){
+import { Message, Client } from "discord.js"
+
+export default async function(message:Message,bot:Client,args:Array<string>){
   interface SecondaryCommand {
     name: string,
     path: string,
@@ -12,6 +14,11 @@ export default async function({message,bot,args}:{message:any,bot:object,args:Ar
       args: [] // bosses
     },
     {
+      name:'bossesClearAll',
+      path:'/bossesClearAll',
+      args: [['equal','clear']]
+    },
+    {
       name:'boss',
       path:'/boss',
       args: [['different']] // bosses [boss-code]
@@ -20,10 +27,20 @@ export default async function({message,bot,args}:{message:any,bot:object,args:Ar
       name:'bossSet',
       path:'/bossSet',
       args: [['different'],['equal','set'],['different']] // bosses [boss-code] set [position]
-    }
+    },
+    {
+      name:'bossClear',
+      path:'/bossClear',
+      args: [['different'],['equal','clear']] // bosses [boss-code] set [position]
+    },
+    {
+      name:'bossClearPosition',
+      path:'/bossClearPosition',
+      args:[['different'],['equal','clear'],['different']] // bosses [boss-code] clear [position]
+    },
   ]
 
-  const verifyArraysArgs = (a:any,b:any) => {
+  const verifyArraysArgs = (a:SecondaryCommand,b:Array<string>) => {
     if(a.args.length!=b.length)return false
     if(a.args.length==0)return true
     for(let i=0;i<a.args.length;i++){
@@ -34,15 +51,22 @@ export default async function({message,bot,args}:{message:any,bot:object,args:Ar
     return true
   }
   
-
-  SecondaryCommands.forEach(async (obj) => {
+  let chosenCommand = SecondaryCommands.find(obj=>verifyArraysArgs(obj,args))
+  if(chosenCommand){
+    let module = await import(process.env.basedir+'/Commands/bosses'+chosenCommand.path)
+    module.default(message,bot,args)
+  }else{
+    message.reply('Thats not a command, type-> !help bosses')
+  }
+  
+  /*SecondaryCommands.forEach(async (obj) => {
     //console.log(obj)
     //console.log(verifyArraysArgs(obj,args))
     if(verifyArraysArgs(obj,args)){
       //console.log(1)
       let module = await import(process.env.basedir+'/Commands/bosses'+obj.path)
-      module.default({message,bot,args})
+      module.default(message,bot,args)
     }
-  })
+  })*/
 
 }

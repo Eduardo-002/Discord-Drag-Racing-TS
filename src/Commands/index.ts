@@ -1,9 +1,9 @@
 import { prefix } from './../config'
-import { Collection } from 'discord.js'
+import { Message, Client } from 'discord.js'
 
-const handleMessage = async ({message,bot}:{message:any,bot:any}) => {
+const handleMessage = async (message:Message,bot:Client) => {
   if(message.content.startsWith(prefix)){
-    let args:Array<string> = message.content.slice(prefix.length).split(' ')
+    let args = message.content.slice(prefix.length).split(' ')
     let command = args.shift()?.toLocaleLowerCase()
 
     interface Command {
@@ -20,7 +20,7 @@ const handleMessage = async ({message,bot}:{message:any,bot:any}) => {
     let module = commands.find(e=>e.name==command)
     if(module){
       let commandModule = await import(module.path)
-      commandModule.default({message,bot,args})
+      commandModule.default(message,bot,args)
     }else{
       message.reply('Command not Found! For help type !help4')
     }
