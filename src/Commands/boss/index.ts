@@ -53,7 +53,7 @@ export default async function(message:Message,bot:Client,args:Array<string>){
   
   let chosenCommand = SecondaryCommands.find(obj=>verifyArraysArgs(obj,args))
   if(chosenCommand){
-    let module = await import(process.env.basedir+'/Commands/bosses'+chosenCommand.path)
+    let module = await import(process.env.basedir+'/Commands/boss'+chosenCommand.path)
     module.default(message,bot,args)
   }else{
     message.reply('Thats not a command, type-> !help bosses')

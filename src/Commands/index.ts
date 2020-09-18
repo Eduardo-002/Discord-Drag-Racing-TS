@@ -13,7 +13,7 @@ const handleMessage = async (message:Message,bot:Client) => {
 
     let commands:Array<Command> = [ 
       {name:'ping',     path:'./ping'  }, 
-      {name:'bosses',   path:'./bosses'}, 
+      {name:'boss',   path:'./boss'}, 
       {name:'help',     path:'./help'  }
     ]
 

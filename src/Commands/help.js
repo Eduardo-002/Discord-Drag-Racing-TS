@@ -13,48 +13,48 @@ const commands = {
       }
     ]
   },
-  'bosses': {
+  'boss': {
     description: 'Used to manage the weakly bosses',
     format: 'bosses [boss-code] [set or clear] [position]',
     variations: [
       {
-        format: 'bosses',
+        format: 'boss',
         description: 'Lists all the bosses and corresponding codes'
       },
       {
-        format: 'bosses order !!! NOT READY !!!',
+        format: 'boss order !!! NOT READY !!!',
         description: 'List the order to beat the bosses'
       },
       {
-        format: 'bosses order next !!! NOT READY !!!',
+        format: 'boss order next !!! NOT READY !!!',
         description: 'Advance the list by 1 position'
       },
       {
-        format: 'bosses order set [boss-code] [position] !!! NOT READY !!!',
+        format: 'boss order set [boss-code] [position] !!! NOT READY !!!',
         description: 'Used to set a boss to a position'
       },
       {
-        format: 'bosses order clear [position] !!! NOT READY !!!',
+        format: 'boss order clear [position] !!! NOT READY !!!',
         description: 'Used to remove some boss from list'
       },
       {
-        format: 'bosses [boss-code]',
+        format: 'boss [boss-code]',
         description: 'Lists the Reserved Places'
       },
       {
-        format: 'bosses [boss-code] set [position]',
+        format: 'boss [boss-code] set [position]',
         description: 'Sets the user position to the defined boss'
       },
       {
-        format: 'bosses clear',
+        format: 'boss clear',
         description: 'Used when the week ends'
       },
       {
-        format: 'bosses [boss-code] clear',
+        format: 'boss [boss-code] clear',
         description: 'Used when the boss os dead'
       },
       {
-        format: 'bosses [boss-code] clear [position]',
+        format: 'boss [boss-code] clear [position]',
         description: 'Used to clean some mistake'
       }
     ]

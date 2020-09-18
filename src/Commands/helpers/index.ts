@@ -8,5 +8,6 @@ export interface Boss {
 export interface Claim {
   id: string,
   index: string,
+  userid: string,
   username: string
 }

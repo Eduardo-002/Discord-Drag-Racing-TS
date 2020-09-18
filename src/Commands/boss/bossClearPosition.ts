@@ -5,6 +5,7 @@ import getBosses from "../helpers/getBosses";
 import getClaims from "../helpers/getClaims";
 
 export default async function bossClear(message:Message,bot:Client,args:Array<string>){
+  let admin = 'Admin'
 
   let bosses = await getBosses()
 
@@ -16,6 +17,13 @@ export default async function bossClear(message:Message,bot:Client,args:Array<st
     const chosenClaim:Claim|undefined = claims.find(e=>e.index==args[2])
 
     if(chosenClaim){
+      if(
+        chosenClaim.userid!=message.author.id &&
+        message.member?.roles.cache.find(r=>r.name===admin)
+      ) {
+        message.reply('You can\'t clear a claim that isn\'t yours')
+        return
+      }
       let cleared = await clearClaim(chosenBoss,chosenClaim)
       if(cleared){
         message.reply(`${chosenClaim.index}º position of ${chosenBoss.name} cleared!`)

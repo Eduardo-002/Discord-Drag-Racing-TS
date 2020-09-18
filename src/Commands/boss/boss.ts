@@ -7,7 +7,7 @@ export default async function boss(message:Message,bot:Client,args:Array<string>
   
   let bosses = await getBosses()
 
-  const chosenBoss:Boss|undefined = bosses.find((e:Boss)=>e.id==args[0])
+  const chosenBoss:Boss|undefined = bosses.find((e:Boss)=>e.code==args[0])
 
   if(chosenBoss){
     let claims = await getClaims(chosenBoss)
@@ -25,6 +25,5 @@ export default async function boss(message:Message,bot:Client,args:Array<string>
     message.channel.send(embed);
   }else{
     message.reply('That\'s not a boss code')
-    message.channel.send('!bosses');
   }
 }

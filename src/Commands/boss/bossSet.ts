@@ -1,5 +1,5 @@
 import { MessageEmbed, Message, Client } from 'discord.js'
-import { db } from './../../Services/firebase'
+import { db } from '../../Services/firebase'
 import getBosses from '../helpers/getBosses'
 import { Boss } from '../helpers'
 import getClaims from '../helpers/getClaims'
@@ -13,9 +13,12 @@ export default async function bossSet(message:Message,bot:Client,args:Array<stri
     let claims = await getClaims(chosenBoss)
 
     if(claims){
-      let c = claims.find(e=>e.index==args[2])
-      if(c){
+      if(claims.find(e=>e.index==args[2])){
         message.reply('Place alredy claimed!')
+        return
+      }
+      if(claims.find(e=>e.userid==message.author.id)){
+        message.reply('You alredy claimmed a place in this boss')
         return
       }
     }

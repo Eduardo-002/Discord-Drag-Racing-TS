@@ -7,8 +7,8 @@ const getClaims = (boss:Boss,db:firebase.firestore.Firestore) => {
       .then(snapshots => {
         let claims:Array<Claim> = []
         snapshots.forEach(doc => {
-          let {index,username} = doc.data()
-          claims.push({id:doc.id,index,username})
+          let {index,username,userid} = doc.data()
+          claims.push({id:doc.id,index,username,userid})
         })
         resolve(claims)
       })
